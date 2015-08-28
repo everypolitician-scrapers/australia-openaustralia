@@ -65,6 +65,7 @@ def scrape_list(url)
 
     unless (wp = @wp_link.xpath("//personinfo[@id='#{id}']")).empty?
       person[:wikipedia] = wp.attr('wikipedia_url').text
+      person[:wikipedia_name] = wp.attr('wikipedia_url').text.split("/").last.gsub('_', ' ')
     end
 
     mem = { 
