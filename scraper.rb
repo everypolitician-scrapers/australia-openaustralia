@@ -76,7 +76,6 @@ def scrape_list(url)
     @terms.each do |term|
       range = overlap(mem, term) or next
       row = person.merge(range).merge({ term: term[:id] })
-      # puts row.to_s.magenta
       ScraperWiki.save_sqlite([:id, :term, :start_date], row)
     end
 
@@ -86,7 +85,7 @@ end
 require 'csv'
 termdates = <<EODATA
 id,name,start_date,end_date
-36,36th Parliament,1987-07-11,1990-03-24
+35,35th Parliament,1987-07-11,1990-03-24
 36,36th Parliament,1990-03-24,1993-03-13
 37,37th Parliament,1993-03-13,1996-03-02
 38,38th Parliament,1996-03-02,1998-10-03
