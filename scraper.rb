@@ -98,6 +98,7 @@ id,name,start_date,end_date
 45,45th Parliament,2016-07-02,
 EODATA
 @terms = CSV.parse(termdates, headers: true, header_converters: :symbol).map(&:to_hash)
+ScraperWiki.sqliteexecute('DELETE FROM data') rescue nil
 ScraperWiki.save_sqlite([:id], @terms, 'terms')
 
 @persons = noko_for('http://data.openaustralia.org/members/people.xml')
