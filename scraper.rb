@@ -2,6 +2,7 @@
 # encoding: utf-8
 # frozen_string_literal: true
 
+require 'csv'
 require 'pry'
 require 'scraped'
 require 'scraperwiki'
@@ -72,12 +73,9 @@ def scrape_list(url)
   end
 end
 
-require 'csv'
 termdates = open('https://raw.githubusercontent.com/everypolitician/everypolitician-data/'\
                   'master/data/Australia/Representatives/sources/manual/terms.csv').read
 @terms = CSV.parse(termdates, headers: true, header_converters: :symbol).map(&:to_hash)
-ScraperWiki.sqliteexecute('DELETE FROM data') rescue nil
-ScraperWiki.save_sqlite([:id], @terms, 'terms')
 
 @persons = noko_for('http://data.openaustralia.org/members/people.xml')
 @aphinfo = noko_for('http://data.openaustralia.org/members/websites.xml')
